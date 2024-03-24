@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_drawer.dart';
+import 'package:food_delivery_app/pages/my_current_location.dart';
 import 'package:food_delivery_app/pages/my_silver.app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 // my current location
+                MyCurrentLocation(),
 
                 // description box
               ],
