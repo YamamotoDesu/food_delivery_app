@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_drawer.dart';
 import 'package:food_delivery_app/pages/my_current_location.dart';
+import 'package:food_delivery_app/pages/my_description_box.dart';
 import 'package:food_delivery_app/pages/my_silver.app_bar.dart';
+import 'package:food_delivery_app/components/my_tab_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,7 +12,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  // tab controller
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +39,8 @@ class _HomePageState extends State<HomePage> {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           MySilverAppBar(
-            title: const Text(
-              "title",
+            title: MyTabBar(
+              tabController: _tabController,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,15 +52,36 @@ class _HomePageState extends State<HomePage> {
                 ),
 
                 // my current location
-                MyCurrentLocation(),
+                const MyCurrentLocation(),
 
                 // description box
+                const MyDescriptionBox(),
               ],
             ),
           ),
         ],
-        body: Container(
-          color: Colors.blue,
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => ListTile(
+                title: Text("First tab items $index"),
+              ),
+            ),
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => ListTile(
+                title: Text("Second tab items $index"),
+              ),
+            ),
+            ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) => ListTile(
+                title: Text("Third tab items $index"),
+              ),
+            ),
+          ],
         ),
       ),
     );

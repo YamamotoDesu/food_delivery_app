@@ -11,6 +11,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings Page'),
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -18,6 +19,7 @@ class SettingsPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(10),
             ),
             margin: const EdgeInsets.only(
               left: 25,
@@ -29,11 +31,16 @@ class SettingsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // dark mode
-                Text(
-                  'Dark Mode',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  child: Text(
+                    'Dark Mode',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
                   ),
                 ),
 
