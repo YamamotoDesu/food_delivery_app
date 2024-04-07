@@ -141,5 +141,88 @@ class _HomePageState extends State<HomePage>
 }
 ```
 
+## Using Provider
+
+```dart
+void main() {
+  runApp(
+    // ChangeNotifierProvider(
+    //   create: (context) => ThemeProvider(),
+    //   child: const MyApp(),
+    // ),
+    MultiProvider(
+      providers: [
+        // theme provider
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+
+        // restaurant provider
+        ChangeNotifierProvider(create: (context) => Restaurant()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
+```
+
+restraurant.dart
+```dart
+class Restaurant extends ChangeNotifier {
+  // list of food menu
+  final List<Food> _menu = [
+    // burgers
+    Food(
+      name: "Classic Cheeseburger",
+      description:
+          "A juicy beef patty with melted cheddar, lettuce, tomato, and a hint of onion and pickle.",
+      imagePath: "lib/images/burgers/cheese_burger.png",
+      price: 8.99,
+      category: FoodCategory.burgers,
+      availableAddons: [
+        Addon(name: "Extra Cheese", price: 0.99),
+        Addon(name: "Bacon", price: 1.49),
+        Addon(name: "Avocado", price: 1.99),
+      ],
+    ),
+  ```
+
+home_page.dart
+```dart
+  // sort out and return a list of food items that belong to the selected category
+  List<Food> _filterMenuByCategory(FoodCategory category, List<Food> fullMenu) {
+    return fullMenu.where((food) => food.category == category).toList();
+  }
+
+  // return list of foods in given category
+  List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
+    return FoodCategory.values.map((category) {
+      List<Food> categoruMenu = _filterMenuByCategory(category, fullMenu);
+
+      return ListView.builder(
+        itemCount: categoruMenu.length,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(categoruMenu[index].name),
+          );
+        },
+      );
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+///---------------------------------------/////
+        body: Consumer<Restaurant>(builder: (context, restaurant, child) {
+          return TabBarView(
+            controller: _tabController,
+            children: getFoodInThisCategory(restaurant.menu),
+          );
+        }),
+      ),
+    );
+```
+
 </details>
+
+
 
