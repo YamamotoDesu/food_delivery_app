@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_drawer.dart';
+import 'package:food_delivery_app/components/my_food_tile.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/models/restraurant.dart';
 import 'package:food_delivery_app/pages/my_current_location.dart';
@@ -43,14 +44,21 @@ class _HomePageState extends State<HomePage>
   // return list of foods in given category
   List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
     return FoodCategory.values.map((category) {
+      // get food items in this category
       List<Food> categoruMenu = _filterMenuByCategory(category, fullMenu);
 
       return ListView.builder(
         itemCount: categoruMenu.length,
         physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(categoruMenu[index].name),
+          // get indibidual food item
+          final food = categoruMenu[index];
+
+          // return food tile UI
+          return FoodTile(
+            food: food,
+            onTap: () {},
           );
         },
       );
