@@ -3,6 +3,7 @@ import 'package:food_delivery_app/components/my_drawer.dart';
 import 'package:food_delivery_app/components/my_food_tile.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/models/restraurant.dart';
+import 'package:food_delivery_app/pages/food_page.dart';
 import 'package:food_delivery_app/pages/my_current_location.dart';
 import 'package:food_delivery_app/pages/my_description_box.dart';
 import 'package:food_delivery_app/pages/my_silver.app_bar.dart';
@@ -58,7 +59,12 @@ class _HomePageState extends State<HomePage>
           // return food tile UI
           return FoodTile(
             food: food,
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodPage(food: food),
+              ),
+            ),
           );
         },
       );
