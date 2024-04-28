@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_cart_tile.dart';
 import 'package:food_delivery_app/models/restraurant.dart';
+import 'package:food_delivery_app/pages/payent_page.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -51,19 +53,40 @@ class CartPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            userCart.isEmpty
-                ? const Expanded(child: Center(child: Text("Cart is empty")))
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: userCart.length,
-                      itemBuilder: ((context, index) {
-                        // get individual food item
-                        final cartItem = userCart[index];
-                        // return cart tile UI
-                        return MyCartTile(cartItem: cartItem);
-                      }),
-                    ),
-                  )
+            // cart items
+            Expanded(
+              child: Column(
+                children: [
+                  userCart.isEmpty
+                      ? const Expanded(
+                          child: Center(child: Text("Cart is empty")))
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: userCart.length,
+                            itemBuilder: ((context, index) {
+                              // get individual food item
+                              final cartItem = userCart[index];
+                              // return cart tile UI
+                              return MyCartTile(cartItem: cartItem);
+                            }),
+                          ),
+                        )
+                ],
+              ),
+            ),
+
+            // button to pay
+            MyButton(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PaymentPage(),
+                ),
+              ),
+              text: "Go to checkout",
+            ),
+
+            const SizedBox(height: 25),
           ],
         ),
       );
