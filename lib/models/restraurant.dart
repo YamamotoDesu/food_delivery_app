@@ -445,4 +445,18 @@ class Restaurant extends ChangeNotifier {
     _cart.clear();
     notifyListeners();
   }
+
+  ///
+  /// HELPERS
+  ///
+
+  // format double value into money
+  String formatPrice(double price) {
+    return "\$${price.toStringAsFixed(2)}";
+  }
+
+  // format list of addons into a string sumary
+  String _formatAddons(List<Addon> addons) {
+    return addons.map((addon) => addon.name).join(", ");
+  }
 }
