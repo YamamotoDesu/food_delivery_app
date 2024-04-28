@@ -14,36 +14,56 @@ class CartPage extends StatelessWidget {
 
       return Scaffold(
         appBar: AppBar(
-          title: Text('Cart'),
+          title: const Text('Cart'),
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("Are you sure you want to clear the cart?"),
+                    actions: [
+                      // cancel
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel"),
+                      ),
+
+                      // clear cart
+                      TextButton(
+                        onPressed: () {
+                          restaurant.clearCart();
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Clear Cart"),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
+          ],
         ),
         body: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: userCart.length,
-                itemBuilder: ((context, index) {
-                  // get individual food item
-                  final cartItem = userCart[index];
-
-                  print("Cart item: ");
-                  print(cartItem.food.name);
-                  print("Addons: ");
-                  print(cartItem.food.availableAddons.length);
-
-                  cartItem.food.availableAddons.map(
-                    (e) {
-                      print("Addons:");
-                      print(e);
-                    },
-                  );
-
-                  // return cart tile UI
-                  return MyCartTile(cartItem: cartItem);
-                }),
-              ),
-            )
+            userCart.isEmpty
+                ? const Expanded(child: Center(child: Text("Cart is empty")))
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: userCart.length,
+                      itemBuilder: ((context, index) {
+                        // get individual food item
+                        final cartItem = userCart[index];
+                        // return cart tile UI
+                        return MyCartTile(cartItem: cartItem);
+                      }),
+                    ),
+                  )
           ],
         ),
       );
