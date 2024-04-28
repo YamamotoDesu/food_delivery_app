@@ -355,6 +355,7 @@ class Restaurant extends ChangeNotifier {
   */
 
   List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
   /*
 
@@ -381,11 +382,14 @@ class Restaurant extends ChangeNotifier {
 
     // if item adready exists, increase it's quantity
     if (cartItem != null) {
+      print("Item already exists in cart");
       cartItem.quantity++;
     }
 
     // otherwise, add a new cart item to the cart
     else {
+      print("Adding new item to cart");
+      print("selectedAddons : ${selectedAddons.length}");
       _cart.add(
         CartItem(food: food, selectedAddons: selectedAddons),
       );
