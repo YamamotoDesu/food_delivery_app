@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   // login method
-  void login() {
+  void login() async {
     print("Logging in");
 
     // get auth service
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // try sign in
     try {
-      _auth.signInWithEmailPassword(
+      await _auth.signInWithEmailPassword(
         emailController.text,
         passwordController.text,
       );
