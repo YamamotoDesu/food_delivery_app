@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
-import 'package:food_delivery_app/pages/home_page.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -19,19 +20,25 @@ class _LoginPageState extends State<LoginPage> {
 
   // login method
   void login() {
-    /*
+    print("Logging in");
 
-    fill out authentication here..
+    // get auth service
+    final _auth = AuthService();
 
-    */
-
-    // navigate to home page
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HomePage(),
-      ),
-    );
+    // try sign in
+    try {
+      _auth.signInWithEmailPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    } catch (e) {
+      // show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
   }
 
   @override

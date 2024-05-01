@@ -4,9 +4,9 @@ import 'package:food_delivery_app/components/my_food_tile.dart';
 import 'package:food_delivery_app/models/food.dart';
 import 'package:food_delivery_app/models/restraurant.dart';
 import 'package:food_delivery_app/pages/food_page.dart';
-import 'package:food_delivery_app/pages/my_current_location.dart';
-import 'package:food_delivery_app/pages/my_description_box.dart';
-import 'package:food_delivery_app/pages/my_silver.app_bar.dart';
+import 'package:food_delivery_app/components/my_current_location.dart';
+import 'package:food_delivery_app/components/my_description_box.dart';
+import 'package:food_delivery_app/components/my_silver.app_bar.dart';
 import 'package:food_delivery_app/components/my_tab_bar.dart';
 import 'package:provider/provider.dart';
 
